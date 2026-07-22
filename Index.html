@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Real Life Quest</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div>
+    <div class="brand">⚔ Real Life Quest</div>
+    <p>Turn your real life into your own adventure.</p>
+  </div>
+
+  <button id="settingsButton" class="bigButton glassButton">
+    ⚙ Settings
+  </button>
+</header>
+
+
+<main>
+
+<!-- PLAYER PROFILE -->
+
+<section class="hero glass">
+
+  <div class="levelOrb">
+    <span>LV</span>
+    <b id="level">1</b>
+  </div>
+
+  <div class="progressArea">
+
+    <div class="eyebrow">
+      ADVENTURER PROFILE
+    </div>
+
+    <h2 id="levelTitle">
+      Level 1 Adventurer
+    </h2>
+
+    <div class="progressTrack">
+      <div id="xpBar" class="progressFill"></div>
+    </div>
+
+    <p id="xpText">
+      0 / 100 XP to next level
+    </p>
+
+  </div>
+
+  <div class="stats">
+
+    <div>
+      <b id="questTotal">0</b>
+      <span>Active Quests</span>
+    </div>
+
+    <div>
+      <b id="objectiveTotal">0</b>
+      <span>Objectives</span>
+    </div>
+
+    <div>
+      <b id="badgeTotal">0</b>
+      <span>Badges</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- QUESTS -->
+
+<div class="sectionHeader">
+
+  <div>
+    <div class="eyebrow">
+      QUEST LOG
+    </div>
+
+    <h2>Quests</h2>
+
+    <p>
+      Only quests you create appear here.
+      Completed quests disappear from the active log.
+    </p>
+
+  </div>
+
+  <button id="newQuestButton" class="bigButton primary">
+    ＋ Create Quest
+  </button>
+
+</div>
+
+
+<section id="quests" class="grid"></section>
+
+
+<section id="questEmpty" class="empty glass">
+
+  <div class="emptyIcon">
+    🗺️
+  </div>
+
+  <h2>
+    No active quests
+  </h2>
+
+  <p>
+    Create a quest to begin your adventure.
+  </p>
+
+  <button id="firstQuestButton" class="bigButton primary">
+    Create Your First Quest
+  </button>
+
+</section>
+
+
+<!-- STANDALONE OBJECTIVES -->
+
+<div class="sectionHeader">
+
+  <div>
+
+    <div class="eyebrow">
+      SIDE OBJECTIVES
+    </div>
+
+    <h2>
+      Standalone Objectives
+    </h2>
+
+    <p>
+      Objectives you create that don't belong to a quest.
+    </p>
+
+  </div>
+
+  <button id="newObjectiveButton" class="bigButton primary">
+    ＋ Create Objective
+  </button>
+
+</div>
+
+
+<section id="standaloneObjectives" class="grid"></section>
+
+
+<section id="objectiveEmpty" class="empty glass">
+
+  <div class="emptyIcon">
+    🎯
+  </div>
+
+  <h2>
+    No standalone objectives
+  </h2>
+
+  <p>
+    Create an objective when you want a task that isn't part of a quest.
+  </p>
+
+  <button id="firstObjectiveButton" class="bigButton primary">
+    Create Your First Objective
+  </button>
+
+</section>
+
+
+<!-- BADGES -->
+
+<div class="sectionHeader">
+
+  <div>
+
+    <div class="eyebrow">
+      ACHIEVEMENTS
+    </div>
+
+    <h2>
+      Badges
+    </h2>
+
+    <p>
+      Badges are earned from your progress.
+    </p>
+
+  </div>
+
+</div>
+
+
+<section id="badges" class="badges"></section>
+
+</main>
+
+
+<!-- QUEST MODAL -->
+
+<div id="questModal" class="modal hidden">
+
+  <div class="modalBox glass">
+
+    <button id="closeQuest" class="closeButton">
+      ×
+    </button>
+
+    <div class="eyebrow">
+      NEW QUEST
+    </div>
+
+    <h2>
+      Create a Quest
+    </h2>
+
+    <p class="modalHint">
+      Everything you enter here is created by you.
+      Nothing is automatically added.
+    </p>
+
+
+    <label>
+      Quest name
+
+      <input
+        id="questName"
+        maxlength="80"
+        placeholder="Enter your quest name"
+      >
+
+    </label>
+
+
+    <label>
+      Description
+
+      <textarea
+        id="questDescription"
+        maxlength="500"
+        placeholder="Enter your own description (optional)"
+      ></textarea>
+
+    </label>
+
+
+    <label>
+      Difficulty
+
+      <select id="difficulty">
+
+        <option value="easy">
+          Easy — 50 XP
+        </option>
+
+        <option value="medium" selected>
+          Medium — 100 XP
+        </option>
+
+        <option value="hard">
+          Hard — 200 XP
+        </option>
+
+        <option value="epic">
+          Epic — 400 XP
+        </option>
+
+        <option value="legendary">
+          Legendary — 800 XP
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <h3>
+      Quest Objectives
+    </h3>
+
+    <p class="modalHint">
+      Add only objectives that you write.
+    </p>
+
+
+    <div id="questObjectiveList"></div>
+
+
+    <button
+      id="addQuestObjective"
+      class="bigButton glassButton"
+    >
+      ＋ Add Objective
+    </button>
+
+
+    <div class="actions">
+
+      <button
+        id="cancelQuest"
+        class="bigButton glassButton"
+      >
+        Cancel
+      </button>
+
+      <button
+        id="saveQuest"
+        class="bigButton primary"
+      >
+        Create Quest
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- STANDALONE OBJECTIVE MODAL -->
+
+<div id="objectiveModal" class="modal hidden">
+
+  <div class="modalBox glass">
+
+    <button id="closeObjective" class="closeButton">
+      ×
+    </button>
+
+    <div class="eyebrow">
+      NEW OBJECTIVE
+    </div>
+
+    <h2>
+      Create an Objective
+    </h2>
+
+    <p class="modalHint">
+      This objective will exist independently from your quests.
+    </p>
+
+
+    <label>
+      Objective
+
+      <input
+        id="standaloneText"
+        maxlength="200"
+        placeholder="Enter your objective"
+      >
+
+    </label>
+
+
+    <label>
+      XP Reward
+
+      <select id="objectiveXP">
+
+        <option value="25">
+          25 XP
+        </option>
+
+        <option value="50" selected>
+          50 XP
+        </option>
+
+        <option value="100">
+          100 XP
+        </option>
+
+        <option value="200">
+          200 XP
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <div class="actions">
+
+      <button
+        id="cancelObjective"
+        class="bigButton glassButton"
+      >
+        Cancel
+      </button>
+
+      <button
+        id="saveObjective"
+        class="bigButton primary"
+      >
+        Create Objective
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- SETTINGS -->
+
+<div id="settingsModal" class="modal hidden">
+
+  <div class="modalBox glass settingsBox">
+
+    <button id="closeSettings" class="closeButton">
+      ×
+    </button>
+
+    <div class="eyebrow">
+      SETTINGS
+    </div>
+
+    <h2>
+      Customize Your World
+    </h2>
+
+
+    <h3>
+      Preset Themes
+    </h3>
+
+    <div id="presets" class="presetGrid"></div>
+
+
+    <h3>
+      Custom Appearance
+    </h3>
+
+
+    <div class="colors">
+
+      <label>
+        Background
+        <input id="bgColor" type="color">
+      </label>
+
+      <label>
+        Glass Tiles
+        <input id="cardColor" type="color">
+      </label>
+
+      <label>
+        Text
+        <input id="textColor" type="color">
+      </label>
+
+      <label>
+        Accent
+        <input id="accentColor" type="color">
+      </label>
+
+    </div>
+
+
+    <label>
+
+      Font
+
+      <select id="font">
+
+        <option value="system">
+          System
+        </option>
+
+        <option value="serif">
+          Serif
+        </option>
+
+        <option value="mono">
+          Mono
+        </option>
+
+      </select>
+
+    </label>
+
+
+    <div class="actions">
+
+      <button id="exportData" class="bigButton glassButton">
+        Export Save
+      </button>
+
+      <button id="importData" class="bigButton glassButton">
+        Import Save
+      </button>
+
+      <input
+        id="importFile"
+        type="file"
+        accept=".json,application/json"
+        hidden
+      >
+
+      <button id="resetData" class="bigButton danger">
+        Delete All Data
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div id="toast"></div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
